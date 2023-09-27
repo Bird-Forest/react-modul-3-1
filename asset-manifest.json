@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/react-modul-3-1/static/css/main.8c7af0cd.css",
+    "main.js": "/react-modul-3-1/static/js/main.7df21ad3.js",
+    "index.html": "/react-modul-3-1/index.html",
+    "static/media/heart-alt-svgrepo-com.svg": "/react-modul-3-1/static/media/heart-alt-svgrepo-com.37861e28ee59d329e7b8d5edb5ffdfad.svg",
+    "main.8c7af0cd.css.map": "/react-modul-3-1/static/css/main.8c7af0cd.css.map",
+    "main.7df21ad3.js.map": "/react-modul-3-1/static/js/main.7df21ad3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8c7af0cd.css",
+    "static/js/main.7df21ad3.js"
+  ]
+}
