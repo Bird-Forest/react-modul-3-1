@@ -4,7 +4,7 @@ import { Heading } from 'components/Heading/Heading';
 import { Book } from 'components/book/Book';
 import booksJson from './books.json';
 import BookForm from 'components/BookForm/BookForm';
-// import { findByTitle } from '@testing-library/react';
+import Modal from 'components/Modal/Modal';
 
 const books = booksJson.books;
 
@@ -13,8 +13,29 @@ export class App extends Component {
     appBooks: books,
     counterValue: 0,
     deliteCounter: 0,
+    modal: {
+      isOpen: false,
+      data: null,
+    },
     // contacts: []
   };
+  componentDidMount() {
+    const stringifyBooks = localStorage.getItem('books');
+    const parsedBooks = JSON.parse(stringifyBooks) ?? [];
+    this.setState({
+      appBooks: parsedBooks,
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('componentDidUpdate: App - update');
+    if (this.state.appBooks.length !== prevState.appBooks.length) {
+      console.log('Changed appBooks');
+      const stringifyBooks = JSON.stringify(this.state.appBooks);
+      localStorage.setItem('books', stringifyBooks);
+    }
+  }
+
   handleIncrement = () => {
     // this.setState({ counterValue: this.state.counterValue + 1 });
     this.setState(prevState => {
@@ -49,6 +70,23 @@ export class App extends Component {
       };
     });
   };
+  onOpenModal = modalData => {
+    this.setState({
+      modal: {
+        isOpen: true,
+        data: modalData,
+      },
+    });
+  };
+  onCloseModal = () => {
+    this.setState({
+      modal: {
+        isOpen: false,
+        data: null,
+      },
+    });
+  };
+
   render() {
     return (
       <div>
@@ -75,10 +113,18 @@ export class App extends Component {
                 cover={book.cover}
                 handleIncrement={this.handleIncrement}
                 handleDelete={this.handleDelete}
+                onOpenModal={this.onOpenModal}
               />
             );
           })}
         </ul>
+        {/* {this.state.modal.isOpen && <Modal />} */}
+        {this.state.modal.isOpen && (
+          <Modal
+            onCloseModal={this.onCloseModal}
+            data={this.state.modal.data}
+          />
+        )}
       </div>
     );
   }

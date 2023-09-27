@@ -11,6 +11,7 @@ export const Book = ({
   cover,
   handleIncrement,
   handleDelete,
+  onOpenModal,
 }) => {
   return (
     <li className={css.book}>
@@ -34,6 +35,7 @@ export const Book = ({
         Click to see event
       </button>
       <button onClick={() => handleDelete(title)}>Delete</button>
+      <button onClick={() => onOpenModal({ title, author })}>Open modal</button>
     </li>
   );
 };
