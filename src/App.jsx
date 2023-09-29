@@ -2,11 +2,12 @@ import { Component } from 'react';
 import css from './App.module.css';
 import { Heading } from 'components/Heading/Heading';
 import { Book } from 'components/book/Book';
-import booksJson from './books.json';
+import booksJson from '../src/books.json';
 import BookForm from 'components/BookForm/BookForm';
 import Modal from 'components/Modal/Modal';
 
 const books = booksJson.books;
+console.log('jjjj', books);
 
 export class App extends Component {
   state = {
@@ -21,7 +22,12 @@ export class App extends Component {
   };
   componentDidMount() {
     const stringifyBooks = localStorage.getItem('books');
-    const parsedBooks = JSON.parse(stringifyBooks) ?? [];
+    let parsedBooks = JSON.parse(stringifyBooks) ?? [];
+    if (parsedBooks.length === 0) {
+      let string = JSON.stringify(books);
+      localStorage.setItem('books', string);
+      parsedBooks = books;
+    }
     this.setState({
       appBooks: parsedBooks,
     });
@@ -101,7 +107,7 @@ export class App extends Component {
         <BookForm handleAddBook={this.handleAddBook} />
 
         <ul className={css.booksList}>
-          {this.state.appBooks.map((book, index) => {
+          {this.state.appBooks.map(book => {
             return (
               <Book
                 key={`${book.title}_${book.author}`}
